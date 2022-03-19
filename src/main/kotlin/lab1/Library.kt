@@ -11,33 +11,27 @@ data class Library(private val content: MutableList<Book> = mutableListOf()) {
 
         booksInfo.forEach {
             val data = it.splitToSequence(bookInfoDelimiter).toList()
-            // Book(name, authors, yearOfPublication)
-            content.add(Book(data[0].substringAfter(sequenceNumberDelimiter).trim(),
-                             data[1].split(authorsDelimiter).map{ authorName -> authorName.trim() },
-                             data[2].trim().toInt()))
+            content.add(Book(data[0].substringAfter(sequenceNumberDelimiter).trim(), // name
+                             data[1].split(authorsDelimiter).map{ authorName -> authorName.trim() },// authors
+                             data[2].trim().toInt())) // yearOfPublication
         }
     }
 
-    fun oldestBook(): Book? {
-        return content.minByOrNull { it.yearOfPublication }
-    }
+    fun oldestBook(): Book? = content.minByOrNull { it.yearOfPublication }
 
-    fun latestBook(): Book? {
-        return content.maxByOrNull { it.yearOfPublication }
-    }
+    fun latestBook(): Book? = content.maxByOrNull { it.yearOfPublication }
 
-    fun longestNameBook(): Book? {
-        return content.maxByOrNull { it.name.length }
-    }
+    fun longestNameBook(): Book? = content.maxByOrNull { it.name.length }
 
-    fun shortestNameBook(): Book? {
-        return content.minByOrNull { it.name.length }
-    }
+    fun shortestNameBook(): Book? = content.minByOrNull { it.name.length }
 
     fun prettyPrint() = content.forEach {println("$it")}
+
+    fun getSize(): Int = content.size
+
+    override fun toString(): String = "$content".replace("[", "").replace("]", "")
 }
 
 data class Book(val name: String, val authors: List<String>, val yearOfPublication: Int) {
     override fun toString() = "$name // $authors // $yearOfPublication".replace("[", "").replace("]", "")
 }
-

@@ -8,12 +8,12 @@ fun main() {
                 "4. Кому нужны художники без нот // Зачемнапис А.Н., Количест В.О., Необозначе Н.О. // 1999\n" +
                 "5. Мечтают ли электроовцы об андроидах? // Явкни Г.Е. // 2006"
 
-    val myLib = Library();
-    myLib.addBooks(demoBookList);
+    val myLib = Library()
     println("Latest Book: ${myLib.latestBook()}")
     println("Oldest Book: ${myLib.oldestBook()}")
     println("Longest Name Book: ${myLib.longestNameBook()}")
     println("Shortest Name Book: ${myLib.shortestNameBook()}")
+    println("Library size: ${myLib.getSize()}")
     println()
     myLib.prettyPrint()
 }
