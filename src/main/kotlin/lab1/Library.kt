@@ -11,9 +11,13 @@ data class Library(private val content: MutableList<Book> = mutableListOf()) {
 
         booksInfo.forEach {
             val data = it.splitToSequence(bookInfoDelimiter).toList()
-            content.add(Book(data[0].substringAfter(sequenceNumberDelimiter).trim(), // name
-                             data[1].split(authorsDelimiter).map{ authorName -> authorName.trim() },// authors
-                             data[2].trim().toInt())) // yearOfPublication
+            content.add(
+                Book(
+                    data[0].substringAfter(sequenceNumberDelimiter).trim(), // name
+                    data[1].split(authorsDelimiter).map { authorName -> authorName.trim() },// authors
+                    data[2].trim().toInt()
+                )
+            ) // yearOfPublication
         }
     }
 
@@ -25,7 +29,7 @@ data class Library(private val content: MutableList<Book> = mutableListOf()) {
 
     fun shortestNameBook(): Book? = content.minByOrNull { it.name.length }
 
-    fun prettyPrint() = content.forEach {println("$it")}
+    fun prettyPrint() = content.forEach { println("$it") }
 
     fun getSize(): Int = content.size
 
