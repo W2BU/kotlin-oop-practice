@@ -9,6 +9,7 @@ fun main() {
                 "5. Мечтают ли электроовцы об андроидах? // Явкни Г.Е. // 2006"
 
     val myLib = Library()
+    myLib.addBooks(demoBookList)
     println("Latest Book: ${myLib.latestBook()}")
     println("Oldest Book: ${myLib.oldestBook()}")
     println("Longest Name Book: ${myLib.longestNameBook()}")
