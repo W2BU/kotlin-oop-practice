@@ -1,6 +1,12 @@
 package lab1
 
-data class Library(private val content: MutableList<Book> = mutableListOf()) {
+ class Library(initial: List<Book> = emptyList()) {
+
+    private val content: MutableList<Book> = mutableListOf()
+
+    init {
+        content.addAll(initial)
+    }
 
     //  Assuming the request and data is correct
     fun addBooks(request: String) {
