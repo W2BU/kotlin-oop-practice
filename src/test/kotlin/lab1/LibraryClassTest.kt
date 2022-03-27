@@ -24,16 +24,16 @@ internal class LibraryClassTest {
         val sampleLib = Library()
         val emptyLib: List<Book> = emptyList()
         assertEquals(0, sampleLib.getSize())
-        assertEquals(emptyLib, sampleLib)
+        assertEquals(emptyLib, sampleLib.getBooks())
 
         sampleLib.addBooks("")
         assertEquals(0, sampleLib.getSize())
-        assertEquals(emptyLib, sampleLib)
+        assertEquals(emptyLib, sampleLib.getBooks())
 
         val oneBookLib = listOf(firstOne)
         sampleLib.addBooks("1. Я, мы, все // Посмотрим Ч.У., Тьпоз Ж.Е. // 2021")
         assertEquals(1, sampleLib.getSize())
-        assertEquals(oneBookLib, sampleLib.toString())
+        assertEquals(oneBookLib, sampleLib.getBooks())
 
         sampleLib.addBooks(
                 "2. Как тут быть? // Тамнавер Х.У., Кто Т.О. // 2006\n" +
@@ -41,7 +41,7 @@ internal class LibraryClassTest {
                 "4. Кому нужны художники без нот // Зачемнапис А.Н., Количест В.О., Необозначе Н.О. // 1999\n" +
                 "5. Мечтают ли электроовцы об андроидах? // Явкни Г.Е. // 2006")
         assertEquals(5, sampleLib.getSize())
-        assertEquals(fullLib, sampleLib)
+        assertEquals(fullLib, sampleLib.getBooks())
     }
 
     @Test
@@ -51,7 +51,7 @@ internal class LibraryClassTest {
 
         sampleLib.addBooks("2. Как тут быть? // Тамнавер Х.У., Кто Т.О. // 2006")
         sampleLib.addBooks("5. Мечтают ли электроовцы об андроидах? // Явкни Г.Е. // 2006")
-        assertEquals(thirdOne, sampleLib.longestNameBook())
+        assertEquals(secondOne, sampleLib.oldestBook())
 
         sampleLib = Library()
         sampleLib.addBooks(fullList)
@@ -65,7 +65,7 @@ internal class LibraryClassTest {
 
         sampleLib.addBooks("2. Как тут быть? // Тамнавер Х.У., Кто Т.О. // 2006")
         sampleLib.addBooks("5. Мечтают ли электроовцы об андроидах? // Явкни Г.Е. // 2006")
-        assertEquals(thirdOne, sampleLib.longestNameBook())
+        assertEquals(secondOne, sampleLib.latestBook())
 
         sampleLib = Library()
         sampleLib.addBooks(fullList)

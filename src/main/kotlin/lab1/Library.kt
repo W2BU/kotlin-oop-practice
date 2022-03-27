@@ -13,17 +13,19 @@ package lab1
         val bookInfoDelimiter = "//"
         val authorsDelimiter = ','
         val sequenceNumberDelimiter = '.'
-        val booksInfo: List<String> = request.lines()
 
-        booksInfo.forEach {
-            val data = it.splitToSequence(bookInfoDelimiter).toList()
-            content.add(
-                Book(
-                    data[0].substringAfter(sequenceNumberDelimiter).trim(), // name
-                    data[1].split(authorsDelimiter).map { authorName -> authorName.trim() },// authors
-                    data[2].trim().toInt()
+        if (request.isNotEmpty()) {
+            val booksInfo: List<String> = request.lines()
+            booksInfo.forEach {
+                val data = it.splitToSequence(bookInfoDelimiter).toList()
+                content.add(
+                    Book(
+                        data[0].substringAfter(sequenceNumberDelimiter).trim(), // name
+                        data[1].split(authorsDelimiter).map { authorName -> authorName.trim() },// authors
+                        data[2].trim().toInt()// yearOfPublication
+                    )
                 )
-            ) // yearOfPublication
+            }
         }
     }
 
@@ -38,6 +40,8 @@ package lab1
     fun prettyPrint() = content.forEach { println("$it") }
 
     fun getSize(): Int = content.size
+
+    fun getBooks(): List<Book> = content
 
     override fun toString(): String = "$content".replace("[", "").replace("]", "")
 }
