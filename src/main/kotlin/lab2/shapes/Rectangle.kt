@@ -3,25 +3,29 @@ package lab2.shapes
 import lab2.Color
 import lab2.ColoredShape2D
 
-class Rectangle(_h: Double, _w: Double, _outline: Color = Color(), _fill: Color = Color()) : ColoredShape2D {
-    private val h: Double
-    private val w: Double
-
-    override val outline: Color
-    override val fill: Color
+class Rectangle(
+    val h: Double,
+    val w: Double,
+    override val outline: Color = Color(),
+    override val fill: Color = Color()
+) : ColoredShape2D {
 
     init {
-        if (_h <= 0 || _w <= 0) {
+        if (h <= 0 || w <= 0) {
             throw IllegalArgumentException("Sides can't be negative or zero")
         }
-        h = _h
-        w = _w
-
-        outline = _outline
-        fill = _fill
     }
 
     override fun area(): Double =  w * h
+
+    override fun equals(other: Any?): Boolean =
+        other is Rectangle &&
+        other.h == this.h &&
+        other.w == this.w &&
+        other.outline == this.outline &&
+        other.fill == this.fill
+
+    override fun hashCode(): Int = h.hashCode() * 31 + w.hashCode()
 
     override fun toString(): String = "Rectangle: [$h, $w], outline$outline, fill$fill"
 }

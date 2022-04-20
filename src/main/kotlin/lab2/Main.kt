@@ -8,9 +8,9 @@ fun main() {
     println(myRectangle)
     val myCircle = Circle(15.0, Color(4, 255, 144))
     println(myCircle)
-    val myTriangle = Triangle(3.0, 4.0, 5.0, _fill = Color(244, 143, 234))
+    val myTriangle = Triangle(3.0, 4.0, 5.0, fill = Color(244, 143, 234))
     println(myTriangle)
-    val mySquare = Square(8.0, _fill = Color(244, 143, 234))
+    val mySquare = Square(8.0, fill = Color(244, 143, 234))
     println(mySquare)
 
     val shapeCollection = ShapeCollector()

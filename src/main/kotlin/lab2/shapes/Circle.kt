@@ -4,22 +4,26 @@ import lab2.Color
 import lab2.ColoredShape2D
 import kotlin.math.PI
 
-class Circle(_r: Double, _outline: Color = Color(), _fill: Color = Color()) : ColoredShape2D {
-    private val r: Double
-
-    override val outline: Color
-    override val fill: Color
+class Circle(
+    val r: Double,
+    override val outline: Color = Color(),
+    override val fill: Color = Color(),
+) : ColoredShape2D {
 
     init {
-        if (_r <= 0)
+        if (r <= 0)
             throw IllegalArgumentException("Radius can't be negative or zero")
-        r = _r
-
-        outline = _outline
-        fill = _fill
     }
 
     override fun area() = 2 * r * r * PI
+
+    override fun equals(other: Any?): Boolean =
+        other is Circle &&
+        other.r == this.r &&
+        other.outline == this.outline &&
+        other.fill == this.fill
+
+    override fun hashCode(): Int = r.hashCode()
 
     override fun toString(): String = "Circle: [$r], outline$outline, fill$fill"
 }
