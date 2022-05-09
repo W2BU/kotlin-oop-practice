@@ -14,6 +14,8 @@ enum class Cell(private val textValue: String) {
 }
 
 enum class State {
+    MAIN_MENU,
+    NEW_GAME_MENU,
     REACHED,
     NOT_REACHED,
 }
@@ -25,7 +27,7 @@ enum class Move {
     RIGHT;
 
     fun deltaX(): Int {
-        return when(this) {
+        return when (this) {
             LEFT -> -1
             RIGHT -> 1
             else -> 0
@@ -33,14 +35,14 @@ enum class Move {
     }
 
     fun deltaY(): Int {
-        return when(this) {
+        return when (this) {
             DOWN -> 1
             UP -> -1
             else -> 0
         }
     }
 }
-private const val PATH_PREFIX: String = "src/main/kotlin/lab4/"
+const val PATH_PREFIX: String = "src/main/kotlin/lab4/"
 private const val DEFAULT_SAVE_FILE_NAME: String = PATH_PREFIX + "save.txt"
 
 interface ModelListener {
@@ -52,7 +54,7 @@ class Model {
 
     private val listeners: MutableSet<ModelListener> = mutableSetOf()
 
-    var state: State = State.NOT_REACHED
+    var state: State = State.MAIN_MENU
         private set
 
     //  Player position
@@ -65,7 +67,6 @@ class Model {
 
 
     fun addModelListener(listener: ModelListener) = listeners.add(listener)
-    fun removeModelListener(listener: ModelListener) = listeners.remove(listener)
     private fun notifyModelListeners() {
         for (listener in listeners) {
             listener.onModelChange()
@@ -73,7 +74,9 @@ class Model {
     }
 
     fun changeMaze(newMazeFilename: String) {
+        state = State.NOT_REACHED
         board = loadFromFile(newMazeFilename)
+        notifyModelListeners()
     }
 
     private fun loadFromFile(filename: String): MutableList<MutableList<Cell>> {
@@ -89,7 +92,7 @@ class Model {
         val newMaze = MutableList(mazeHeight) { MutableList(mazeWidth) { Cell.WALL } }
         for ((i, row) in textMaze.withIndex()) {
             for ((j, element) in row.withIndex()) {
-                when(element.toString()) {
+                when (element.toString()) {
                     Cell.EXIT.toString() -> newMaze[i][j] = Cell.EXIT
                     Cell.PATH.toString() -> newMaze[i][j] = Cell.PATH
                     Cell.PLAYER.toString() -> {
@@ -110,10 +113,10 @@ class Model {
         val nextY = playerY + currentMove.deltaY()
         if (nextY in 0..mazeHeight &&
             nextX in 0..mazeWidth &&
-            (board[nextY][nextX] != Cell.WALL)) {
+            (board[nextY][nextX] != Cell.WALL)
+        ) {
             if (board[nextY][nextX] == Cell.EXIT) {
                 state = State.REACHED
-                println("You won")
             } else {
                 board[playerY][playerX] = Cell.PATH
                 board[nextY][nextX] = Cell.PLAYER
@@ -126,7 +129,7 @@ class Model {
 
     fun save() {
         try {
-            FileWriter(PATH_PREFIX + "save.txt").buffered().use { writer ->
+            FileWriter(DEFAULT_SAVE_FILE_NAME).buffered().use { writer ->
                 for (row in board) {
                     for (cell in row) {
                         writer.write(cell.toString())
@@ -135,16 +138,32 @@ class Model {
                 }
             }
         } catch (e: IOException) {
-            println("Whoops something went wrong")
+            println("Whoops something wrong with save.txt")
         }
+    }
+
+    fun newGame() {
+        state = State.NEW_GAME_MENU
+        notifyModelListeners()
+    }
+
+    fun continueGame() {
+        state = State.NOT_REACHED
+        notifyModelListeners()
     }
 
     override fun toString(): String {
-        return buildString {
-            board.forEach {
-                append(it.toString()).appendLine()
+        return when (state) {
+            State.MAIN_MENU -> "1 - continue\n2 - new game\n"
+            State.NEW_GAME_MENU -> "Enter name of the file with maze"
+            State.REACHED -> "You won"
+            else -> {
+                buildString {
+                    board.forEach {
+                        append(it.toString()).appendLine()
+                    }
+                }
             }
         }
     }
-
 }
