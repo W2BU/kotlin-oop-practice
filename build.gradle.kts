@@ -27,5 +27,5 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    mainClass.set("DemoNoteService.kt")
+    mainClass.set("Main.kt")
 }
