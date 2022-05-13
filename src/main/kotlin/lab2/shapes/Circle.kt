@@ -2,8 +2,11 @@ package lab2.shapes
 
 import lab2.Color
 import lab2.ColoredShape2D
+import kotlinx.serialization.*
 import kotlin.math.PI
 
+
+@Serializable
 class Circle(
     val r: Double,
     override val outline: Color = Color(),

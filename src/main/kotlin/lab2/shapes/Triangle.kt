@@ -2,8 +2,10 @@ package lab2.shapes
 
 import lab2.Color
 import lab2.ColoredShape2D
+import kotlinx.serialization.*
 import kotlin.math.sqrt
 
+@Serializable
 class Triangle(
     val a: Double,
     val b: Double,

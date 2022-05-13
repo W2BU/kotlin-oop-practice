@@ -2,7 +2,9 @@ package lab2.shapes
 
 import lab2.Color
 import lab2.ColoredShape2D
+import kotlinx.serialization.*
 
+@Serializable
 class Rectangle(
     val h: Double,
     val w: Double,

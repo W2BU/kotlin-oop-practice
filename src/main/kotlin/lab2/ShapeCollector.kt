@@ -1,5 +1,7 @@
 package lab2
 
+import kotlinx.serialization.*
+
 class ShapeCollector(initial: List<ColoredShape2D> = emptyList()) {
 
     private val content: MutableList<ColoredShape2D> = mutableListOf()
