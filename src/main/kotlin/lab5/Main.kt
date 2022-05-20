@@ -2,6 +2,7 @@ package lab5
 
 import lab2.shapes.*
 import lab2.Color
+import lab2.ShapeCollector
 
 
 fun main() {

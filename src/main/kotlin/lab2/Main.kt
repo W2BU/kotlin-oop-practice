@@ -13,7 +13,7 @@ fun main() {
     val mySquare = Square(8.0, fill = Color(244, 143, 234))
     println(mySquare)
 
-    val shapeCollection = ShapeCollector()
+    val shapeCollection = ShapeCollector<ColoredShape2D>()
     shapeCollection.apply {
         add(myCircle)
         add(myRectangle)
@@ -29,5 +29,5 @@ fun main() {
     println("Size: ${shapeCollection.size()}")
     println("Grouped by outline color:\n${shapeCollection.groupByOutlineColor()}")
     println("Grouped by fill color:\n${shapeCollection.groupByFillColor()}")
-    println("Grouped by type:\n${shapeCollection.groupOfClass("Rectangle")}")
+    println("Grouped by type:\n${shapeCollection.groupOfClass<Rectangle>()}")
 }

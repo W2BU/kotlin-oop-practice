@@ -16,6 +16,7 @@ enum class Cell(private val textValue: String) {
 enum class State {
     MAIN_MENU,
     NEW_GAME_MENU,
+    CONTINUE_GAME_MENU,
     REACHED,
     NOT_REACHED,
 }
@@ -42,15 +43,41 @@ enum class Move {
         }
     }
 }
+
 const val PATH_PREFIX: String = "src/main/kotlin/lab4/"
 private const val DEFAULT_SAVE_FILE_NAME: String = PATH_PREFIX + "save.txt"
+
+fun loadFromFile(filename: String): List<List<Cell>> {
+    val textMaze: List<String> = try {
+        FileReader(filename).buffered().readLines()
+    } catch (e: IOException) {
+        println("Can't find the $filename")
+        listOf(Cell.WALL.toString()) // return
+    }
+
+    val mazeHeight = textMaze.size
+    val mazeWidth = textMaze.maxOf { it.length }.toInt() // longest row to equal other rows
+
+    val newMaze = MutableList(mazeHeight) { MutableList(mazeWidth) { Cell.WALL } }
+    for ((i, row) in textMaze.withIndex()) {
+        for ((j, element) in row.withIndex()) {
+            when (element.toString()) {
+                Cell.EXIT.toString() -> newMaze[i][j] = Cell.EXIT
+                Cell.PATH.toString() -> newMaze[i][j] = Cell.PATH
+                Cell.PLAYER.toString() -> newMaze[i][j] = Cell.PLAYER
+            }
+        }
+    }
+    return newMaze
+}
+
 
 interface ModelListener {
     fun onModelChange()
 }
 
 class Model {
-    private var board: MutableList<MutableList<Cell>> = loadFromFile(DEFAULT_SAVE_FILE_NAME)
+    private var board: MutableList<MutableList<Cell>> = mutableListOf()
 
     private val listeners: MutableSet<ModelListener> = mutableSetOf()
 
@@ -65,48 +92,12 @@ class Model {
     private var mazeHeight: Int = 0
     private var mazeWidth: Int = 0
 
-
     fun addModelListener(listener: ModelListener) = listeners.add(listener)
     private fun notifyModelListeners() {
         for (listener in listeners) {
             listener.onModelChange()
         }
     }
-
-    fun changeMaze(newMazeFilename: String) {
-        state = State.NOT_REACHED
-        board = loadFromFile(newMazeFilename)
-        notifyModelListeners()
-    }
-
-    private fun loadFromFile(filename: String): MutableList<MutableList<Cell>> {
-        val textMaze: List<String> = try {
-            FileReader(filename).buffered().readLines()
-        } catch (e: IOException) {
-            println("Can't find the $filename")
-            listOf(Cell.WALL.toString()) // return
-        }
-        mazeHeight = textMaze.size
-        mazeWidth = longestRow(textMaze)
-
-        val newMaze = MutableList(mazeHeight) { MutableList(mazeWidth) { Cell.WALL } }
-        for ((i, row) in textMaze.withIndex()) {
-            for ((j, element) in row.withIndex()) {
-                when (element.toString()) {
-                    Cell.EXIT.toString() -> newMaze[i][j] = Cell.EXIT
-                    Cell.PATH.toString() -> newMaze[i][j] = Cell.PATH
-                    Cell.PLAYER.toString() -> {
-                        newMaze[i][j] = Cell.PLAYER
-                        playerX = j
-                        playerY = i
-                    }
-                }
-            }
-        }
-        return newMaze
-    }
-
-    private fun longestRow(list: List<String>): Int = list.maxOf { it.length }.toInt()
 
     fun doMove(currentMove: Move) {
         val nextX = playerX + currentMove.deltaX()
@@ -148,6 +139,28 @@ class Model {
     }
 
     fun continueGame() {
+        state = State.CONTINUE_GAME_MENU
+        notifyModelListeners()
+    }
+
+    fun changeBoard(newBoard: List<List<Cell>>) {
+        mazeHeight = newBoard.size
+        mazeWidth = newBoard[0].size
+        board = MutableList(mazeHeight) { MutableList(mazeWidth) { Cell.WALL } }
+        for ((i, row) in newBoard.withIndex()) {
+            for ((j, element) in row.withIndex()) {
+                when (element) {
+                    Cell.EXIT -> board[i][j] = Cell.EXIT
+                    Cell.PATH -> board[i][j] = Cell.PATH
+                    Cell.PLAYER -> {
+                        board[i][j] = Cell.PLAYER
+                        playerX = j
+                        playerY = i
+                    }
+                    Cell.WALL -> board[i][j] = Cell.WALL
+                }
+            }
+        }
         state = State.NOT_REACHED
         notifyModelListeners()
     }

@@ -3,7 +3,7 @@ package lab6
 import lab2.Color
 import lab2.ColoredShape2D
 import lab2.shapes.*
-import lab6.ShapeCollector
+import lab2.ShapeCollector
 
 fun main() {
     val red = Color(255, 0 ,0)
@@ -20,7 +20,8 @@ fun main() {
     )
     val serializer = Serializer();
     serializer.serializeToFile(collection, "sample.txt")
-    val deserializedCollection = serializer.deserializeFromFile("sample.txt")
+    val listOfShapes = serializer.deserializeFromFile("sample.txt")
+    val deserializedCollection = ShapeCollector(listOfShapes)
     deserializedCollection.add(Circle(3.0, blue, red))
     deserializedCollection.add(Square(5.0, red, blue))
     serializer.serializeToFile(deserializedCollection, "sample2.txt")

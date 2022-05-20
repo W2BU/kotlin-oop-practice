@@ -2,7 +2,7 @@ package lab5
 
 import lab2.Color
 import lab2.ColoredShape2D
-import lab5.ShapeCollector
+import lab2.ShapeCollector
 import lab5.AreaComparator
 import lab5.SquareComparator
 

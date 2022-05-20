@@ -8,7 +8,7 @@ import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.*
 import lab2.shapes.*
 import lab2.ColoredShape2D
-import lab6.ShapeCollector
+import lab2.ShapeCollector
 import java.io.File
 import java.io.IOException
 
@@ -29,22 +29,22 @@ class Serializer {
 
     fun serializeToFile(collector: ShapeCollector<ColoredShape2D>, fileName: String) {
         try {
-            File(libPrefix + fileName).writeText(json.encodeToString(collector))
+            File(libPrefix + fileName).writeText(json.encodeToString(collector.shapesList))
         } catch (e: IOException) {
             println(e.message)
         }
     }
 
-    fun deserializeFromFile(fileName: String): ShapeCollector<ColoredShape2D> {
-        require(File(libPrefix + fileName).exists()) { "Specified file does not exist in $libPrefix"}
+    fun deserializeFromFile(fileName: String): List<ColoredShape2D> {
+        require(File(libPrefix + fileName).exists()) { "Specified file does not exist in $libPrefix" }
         return json.decodeFromString(File(libPrefix + fileName).readText())
     }
 
     fun serializeToJson(collector: ShapeCollector<ColoredShape2D>): String {
-        return json.encodeToString(collector)
+        return json.encodeToString(collector.shapesList)
     }
 
-    fun deserializeFromJson(string: String): ShapeCollector<ColoredShape2D> {
+    fun deserializeFromJson(string: String): List<ColoredShape2D> {
         return json.decodeFromString(string)
     }
 

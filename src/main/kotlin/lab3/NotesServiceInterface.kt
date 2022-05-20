@@ -1,6 +1,8 @@
 package lab3
 
-interface INotesService {
+import kotlin.reflect.KClass
+
+interface NotesServiceInterface {
     fun add(note: Note)
     fun remove(title: String)
 
@@ -14,7 +16,9 @@ interface INotesService {
     fun createUrlNote(title: String, url: String): Note.UrlNote
 
     fun findByTitle(title: String): List<Note>
-    fun findByType(typename: String): List<Note>
+    fun <T: Note>findByType(c: KClass<T>): List<Note>
+
+
 
     fun getSortedByTitle(): List<Note>
     fun getSortedByDate(): List<Note>

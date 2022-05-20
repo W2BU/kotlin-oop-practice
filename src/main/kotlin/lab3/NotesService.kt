@@ -1,8 +1,9 @@
 package lab3
 
 import org.apache.logging.log4j.LogManager
+import kotlin.reflect.KClass
 
-class NotesService(initList: List<Note> = emptyList()) : INotesService {
+class NotesService(initList: List<Note> = emptyList()) : NotesServiceInterface {
 
     private val logger = LogManager.getLogger(NotesService::class.java)
     private val notes: MutableList<Note> = mutableListOf()
@@ -61,9 +62,9 @@ class NotesService(initList: List<Note> = emptyList()) : INotesService {
         logger.info("${this::findByTitle.name} call")
         return notes.filter { it.title == title }
     }
-    override fun findByType(typename: String): List<Note> {
-        logger.info("${this::findByTitle.name} call")
-        return notes.filter { it.javaClass.simpleName == typename }
+    override fun <T: Note>findByType(c: KClass<T>): List<Note> {
+        logger.info("${this.javaClass.simpleName} call")
+        return notes.filter { it::class == c }
     }
 
     override fun getSortedByTitle(): List<Note> {

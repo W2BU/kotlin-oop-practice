@@ -1,8 +1,10 @@
 package lab4.controller
 
+import lab4.model.Cell
 import lab4.model.Model
 import lab4.model.State.*
 import lab4.model.Move.*
+import lab4.model.loadFromFile
 import lab4.model.PATH_PREFIX
 import java.io.IOException
 
@@ -29,7 +31,7 @@ class Controller(private val model: Model) {
 
     private fun newGameMenuInput() {
         while (model.state == NEW_GAME_MENU) {
-            model.changeMaze(
+            val newBoard: List<List<Cell>> = loadFromFile(
                 PATH_PREFIX +
                     try {
                         val filename = readln()
@@ -39,6 +41,11 @@ class Controller(private val model: Model) {
                         "save.txt"
                     }
             )
+            model.changeBoard(newBoard)
+        }
+        while (model.state == CONTINUE_GAME_MENU) {
+            val newBoard: List<List<Cell>> = loadFromFile(PATH_PREFIX + "save.txt")
+            model.changeBoard(newBoard)
         }
     }
 

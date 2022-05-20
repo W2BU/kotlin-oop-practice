@@ -1,132 +1,65 @@
-{
-    "content": [
-        {
-            "type": "lab2.shapes.Rectangle",
-            "h": 2.0,
-            "w": 1.0,
-            "outline": {
-                "r": 255
-            },
-            "fill": {
-                "g": 255
-            }
+[
+    {
+        "type": "lab2.shapes.Rectangle",
+        "h": 2.0,
+        "w": 1.0,
+        "outline": {
+            "r": 255
         },
-        {
-            "type": "lab2.shapes.Square",
-            "h": 4.0,
-            "outline": {
-                "g": 255
-            },
-            "fill": {
-                "r": 255
-            }
-        },
-        {
-            "type": "lab2.shapes.Circle",
-            "r": 2.0,
-            "outline": {
-                "r": 255
-            },
-            "fill": {
-                "b": 255
-            }
-        },
-        {
-            "type": "lab2.shapes.Triangle",
-            "a": 3.0,
-            "b": 4.0,
-            "c": 5.0,
-            "outline": {
-                "b": 255
-            },
-            "fill": {
-                "g": 255
-            }
-        },
-        {
-            "type": "lab2.shapes.Circle",
-            "r": 3.0,
-            "outline": {
-                "b": 255
-            },
-            "fill": {
-                "r": 255
-            }
-        },
-        {
-            "type": "lab2.shapes.Square",
-            "h": 5.0,
-            "outline": {
-                "r": 255
-            },
-            "fill": {
-                "b": 255
-            }
+        "fill": {
+            "g": 255
         }
-    ],
-    "shapesList": [
-        {
-            "type": "lab2.shapes.Rectangle",
-            "h": 2.0,
-            "w": 1.0,
-            "outline": {
-                "r": 255
-            },
-            "fill": {
-                "g": 255
-            }
+    },
+    {
+        "type": "lab2.shapes.Square",
+        "h": 4.0,
+        "outline": {
+            "g": 255
         },
-        {
-            "type": "lab2.shapes.Square",
-            "h": 4.0,
-            "outline": {
-                "g": 255
-            },
-            "fill": {
-                "r": 255
-            }
-        },
-        {
-            "type": "lab2.shapes.Circle",
-            "r": 2.0,
-            "outline": {
-                "r": 255
-            },
-            "fill": {
-                "b": 255
-            }
-        },
-        {
-            "type": "lab2.shapes.Triangle",
-            "a": 3.0,
-            "b": 4.0,
-            "c": 5.0,
-            "outline": {
-                "b": 255
-            },
-            "fill": {
-                "g": 255
-            }
-        },
-        {
-            "type": "lab2.shapes.Circle",
-            "r": 3.0,
-            "outline": {
-                "b": 255
-            },
-            "fill": {
-                "r": 255
-            }
-        },
-        {
-            "type": "lab2.shapes.Square",
-            "h": 5.0,
-            "outline": {
-                "r": 255
-            },
-            "fill": {
-                "b": 255
-            }
+        "fill": {
+            "r": 255
         }
-    ]
-}
+    },
+    {
+        "type": "lab2.shapes.Circle",
+        "r": 2.0,
+        "outline": {
+            "r": 255
+        },
+        "fill": {
+            "b": 255
+        }
+    },
+    {
+        "type": "lab2.shapes.Triangle",
+        "a": 3.0,
+        "b": 4.0,
+        "c": 5.0,
+        "outline": {
+            "b": 255
+        },
+        "fill": {
+            "g": 255
+        }
+    },
+    {
+        "type": "lab2.shapes.Circle",
+        "r": 3.0,
+        "outline": {
+            "b": 255
+        },
+        "fill": {
+            "r": 255
+        }
+    },
+    {
+        "type": "lab2.shapes.Square",
+        "h": 5.0,
+        "outline": {
+            "r": 255
+        },
+        "fill": {
+            "b": 255
+        }
+    }
+]

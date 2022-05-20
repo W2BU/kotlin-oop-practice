@@ -92,11 +92,10 @@ internal class ShapeCollectorTest {
 
     @Test
     fun groupOfClass() {
-        assertEquals(listOf(trngl1, trngl2), fullCollection.groupOfClass("Triangle"))
-        assertEquals(listOf(rctngl1, rctngl2), fullCollection.groupOfClass("Rectangle"))
-        assertEquals(listOf(crcl1, crcl2), fullCollection.groupOfClass("Circle"))
-        assertEquals(listOf(sqr1, sqr2), fullCollection.groupOfClass("Square"))
-        assertEquals(emptyList<ColoredShape2D>(), fullCollection.groupOfClass("Oval"))
+        assertEquals(listOf(trngl1, trngl2), fullCollection.groupOfClass<Triangle>())
+        assertEquals(listOf(rctngl1, rctngl2), fullCollection.groupOfClass<Rectangle>())
+        assertEquals(listOf(crcl1, crcl2), fullCollection.groupOfClass<Circle>())
+        assertEquals(listOf(sqr1, sqr2), fullCollection.groupOfClass<Square>())
     }
 
      @Test
