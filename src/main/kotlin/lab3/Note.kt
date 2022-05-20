@@ -53,9 +53,9 @@ sealed class Note(
         title: String,
         description: String,
         private val url: String = "",
-    ) : Note(title, url) {
+    ) : Note(title, description) {
         override fun toString(): String =
-            "\n$title\n$description\n$date\n"
+            "\n$title\n$description\n$date\n$url\n"
 
         override fun equals(other: Any?): Boolean =
             other is UrlNote &&
